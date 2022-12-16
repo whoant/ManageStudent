@@ -78,6 +78,28 @@ namespace ManageStudent
                 }
                 
             }
+
+            for (int i = 0; i < countStudent - 1; i++)
+            {
+                for (int j = i + 1; j < countStudent; j++)
+                {
+                    if (float.Parse(validStudent[i * 4 + 3]) < float.Parse(validStudent[j * 4 + 3]))
+                    {
+                        SwapString(ref validStudent[i * 4], ref validStudent[j * 4]);
+                        SwapString(ref validStudent[i * 4 + 1], ref validStudent[j * 4 + 1]);
+                        SwapString(ref validStudent[i * 4 + 2], ref validStudent[j * 4 + 2]);
+                        SwapString(ref validStudent[i * 4 + 3], ref validStudent[j * 4 + 3]);
+                    }
+                }
+            }
+
+            for (int i = 0; i < countStudent; i++)
+            {
+                string dataRender = validStudent[i * 4] + "|" + validStudent[i * 4 + 1] + "|" +
+                              validStudent[i * 4 + 2] + "|" + validStudent[i * 4 + 3];
+                File.AppendAllText("output1.txt", dataRender + Environment.NewLine);
+            }
+            
             pointAvgAllStudents /= countStudent;
             
             int indexNear1 = 0;
@@ -108,13 +130,20 @@ namespace ManageStudent
                           validStudent[indexNear2 *4] + "|" + validStudent[indexNear2 *4+ 1] + "|" +
                           validStudent[indexNear2 *4+ 2] + "|" + validStudent[indexNear2*4 + 3] ;
             
-            File.AppendAllText("output.txt", data + Environment.NewLine);
+            File.AppendAllText("output2.txt", data + Environment.NewLine);
             
         }
 
         public static void Swap(ref int a, ref int b)
         {
             int temp = a;
+            a = b;
+            b = temp;
+        }
+        
+        public static void SwapString(ref string a, ref string b)
+        {
+            string temp = a;
             a = b;
             b = temp;
         }
